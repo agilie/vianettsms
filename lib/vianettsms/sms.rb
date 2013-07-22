@@ -1,7 +1,7 @@
 module Vianettsms
 
   class Sms
-    attr_accessor :to, :message, :msgid
+    attr_accessor :to, :message, :msgid, :from
 
     attr_reader :status, :response_hash
 
@@ -9,6 +9,7 @@ module Vianettsms
       @to = params[:to]
       @message = params[:message]
       @msgid = params[:msgid]
+      @from = params[:from]
       @response = nil
       @response_hash= {}
       @status = nil
@@ -43,8 +44,9 @@ module Vianettsms
         :password => Vianettsms.config[:password],
         :tel => @to || "",
         :msg => @message || "",
-        :msgid => @msgid || ""
-      }
+        :msgid => @msgid || "",
+        :sourceAddr => @from || ""
+        }
     end
 
     def handle_response(response)
